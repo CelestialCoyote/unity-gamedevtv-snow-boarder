@@ -11,18 +11,22 @@ public class PlayerController : MonoBehaviour
 
 	Rigidbody2D playerRb2D;
 	SurfaceEffector2D surfaceEffector2D;
+	bool canMove = true;
 
-    void Start()
-    {
-        playerRb2D = GetComponent<Rigidbody2D>();
+	void Start()
+	{
+		playerRb2D = GetComponent<Rigidbody2D>();
 		surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
-    }
+	}
 
-    void Update()
-    {
-        RotatePlayer();
-		RespondToBoost();
-    }
+	void Update()
+	{
+		if (canMove)
+		{
+			RotatePlayer();
+			RespondToBoost();
+		}
+	}
 
 	void RotatePlayer()
 	{
@@ -38,5 +42,10 @@ public class PlayerController : MonoBehaviour
 			surfaceEffector2D.speed = boostSpeed;
 		else
 			surfaceEffector2D.speed = baseSpeed;
+	}
+
+	public void DisableControls()
+	{
+		canMove = false;
 	}
 }
